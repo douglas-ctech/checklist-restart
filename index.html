@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist Diário - Suporte</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- SheetJS for Excel export -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+    </style>
+</head>
+<body class="min-h-screen py-10 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto space-y-8">
+        
+        <!-- Header -->
+        <header class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <h1 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                        <span class="text-amber-500">⚡</span> Checklist Diário de Ambientes
+                    </h1>
+                    <p class="text-slate-500 text-sm mt-1">Rotina de reinicialização de servidores Azure e AWS</p>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1">Data</label>
+                        <input type="date" id="checkDate" class="bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1">Responsável</label>
+                        <input type="text" id="respName" placeholder="Seu nome" class="bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-500">
+                    </div>
+                </div>
+            </div>
+            <!-- Progress Bar -->
+            <div class="mt-6">
+                <div class="flex justify-between text-sm mb-1">
+                    <span class="text-slate-600 font-medium">Progresso Geral</span>
+                    <span id="progressText" class="text-amber-600 font-semibold">0%</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden border border-slate-200">
+                    <div id="progressBar" class="bg-amber-500 h-2.5 transition-all duration-300" style="width: 0%"></div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Form -->
+        <main class="space-y-6">
+            
+            <!-- Azure Section -->
+            <section class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+                <div class="flex items-center justify-between mb-6 border-b border-slate-100 pb-3">
+                    <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> Servidores Azure
+                    </h2>
+                    <span class="text-xs font-semibold bg-blue-50 text-blue-700 px-3 py-1 rounded-full border border-blue-200">3 HTTPS • 2 TCP</span>
+                </div>
+                <div id="azureContainer" class="space-y-4">
+                    <!-- Dynamic Azure Cards -->
+                </div>
+            </section>
+
+            <!-- AWS Section -->
+            <section class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+                <div class="flex items-center justify-between mb-6 border-b border-slate-100 pb-3">
+                    <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Ambientes AWS
+                    </h2>
+                    <span class="text-xs font-semibold bg-amber-50 text-amber-700 px-3 py-1 rounded-full border border-amber-200">7 Ambientes</span>
+                </div>
+                <div id="awsContainer" class="space-y-4">
+                    <!-- Dynamic AWS Cards -->
+                </div>
+            </section>
+
+            <!-- Observations -->
+            <section class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+                <h2 class="text-lg font-bold text-slate-900 mb-2">📝 Observações / Ocorrências</h2>
+                <textarea id="observations" rows="3" placeholder="Registre aqui se houve falhas, lentidão ou comportamento atípico..." class="w-full bg-white border border-slate-300 rounded-xl p-3 text-sm text-slate-800 focus:outline-none focus:border-amber-500"></textarea>
+            </section>
+
+            <!-- Actions -->
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-2">
+                <button onclick="resetChecklist()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl border border-red-200 text-red-600 hover:bg-red-50 text-sm font-semibold transition">
+                    Limpar Checklist
+                </button>
+                <button onclick="exportToExcel()" class="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-sm shadow-sm transition">
+                    <span>📊</span> Gerar e Baixar Relatório Excel
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const azureServers = [
+            { name: "Servidor Azure HTTPS 1", type: "HTTPS" },
+            { name: "Servidor Azure HTTPS 2", type: "HTTPS" },
+            { name: "Servidor Azure HTTPS 3", type: "HTTPS" },
+            { name: "Servidor Azure TCP 1", type: "TCP" },
+            { name: "Servidor Azure TCP 2", type: "TCP" }
+        ];
+
+        const awsEnvironments = [
+            "Softcom", "Procfit", "Elgin", "Compartilhado", "Arius", "MultiplusCard", "Linear Sistemas"
+        ];
+
+        const azureSteps = [
+            "Sincronizar offline no PSW",
+            "Bloquear os PDVs",
+            "Aguardar 30s",
+            "Encerrar aplicação",
+            "Executar como Admin",
+            "Aguardar carregar contrato"
+        ];
+
+        const awsSteps = [
+            "Sincronizar offline no PSW",
+            "Silenciar PDVs",
+            "Abrir services.msc",
+            "Parar/Subir Serviços",
+            "Aguardar PDVs voltarem"
+        ];
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("checkDate").valueAsDate = new Date();
+            renderAzure();
+            renderAWS();
+            updateProgress();
+        });
+
+        function renderAzure() {
+            const container = document.getElementById("azureContainer");
+            container.innerHTML = "";
+            azureServers.forEach((srv, srvIdx) => {
+                let stepsHtml = azureSteps.map((step, stepIdx) => `
+                    <label class="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 border border-slate-200 hover:border-slate-300 cursor-pointer select-none transition">
+                        <div class="flex items-center gap-3">
+                            <input type="checkbox" data-group="azure" data-server="${srvIdx}" data-step="${stepIdx}" onchange="updateProgress()" class="w-4 h-4 rounded border-slate-300 text-amber-500 focus:ring-amber-500">
+                            <span class="text-sm text-slate-700 font-medium">${step}</span>
+                        </div>
+                        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-white text-slate-500 border border-slate-200">${srv.type}</span>
+                    </label>
+                `).join('');
+
+                container.innerHTML += `
+                    <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                        <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
+                            <span class="font-bold text-slate-800 text-sm flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> ${srv.name}
+                            </span>
+                            <span class="text-xs text-slate-400 font-mono">AWS / Azure</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
+                            ${stepsHtml}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function renderAWS() {
+            const container = document.getElementById("awsContainer");
+            container.innerHTML = "";
+            awsEnvironments.forEach((env, envIdx) => {
+                let stepsHtml = awsSteps.map((step, stepIdx) => `
+                    <label class="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 border border-slate-200 hover:border-slate-300 cursor-pointer select-none transition">
+                        <div class="flex items-center gap-3">
+                            <input type="checkbox" data-group="aws" data-env="${envIdx}" data-step="${stepIdx}" onchange="updateProgress()" class="w-4 h-4 rounded border-slate-300 text-amber-500 focus:ring-amber-500">
+                            <span class="text-sm text-slate-700 font-medium">${step}</span>
+                        </div>
+                        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-white text-slate-500 border border-slate-200">AWS</span>
+                    </label>
+                `).join('');
+
+                container.innerHTML += `
+                    <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                        <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
+                            <span class="font-bold text-slate-800 text-sm flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Ambiente - ${env}
+                            </span>
+                            <span class="text-xs text-slate-400 font-mono">AWS</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
+                            ${stepsHtml}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll("input[type='checkbox']");
+            const total = checkboxes.length;
+            let checked = 0;
+            checkboxes.forEach(cb => { if (cb.checked) checked++; });
+            const percent = Math.round((checked / total) * 100);
+            
+            document.getElementById("progressText").innerText = percent + "%";
+            document.getElementById("progressBar").style.width = percent + "%";
+        }
+
+        function resetChecklist() {
+            if (confirm("Deseja realmente limpar todas as marcações?")) {
+                document.querySelectorAll("input[type='checkbox']").forEach(cb => cb.checked = false);
+                document.getElementById("observations").value = "";
+                updateProgress();
+            }
+        }
+
+        function exportToExcel() {
+            const date = document.getElementById("checkDate").value || "Data não informada";
+            const resp = document.getElementById("respName").value || "Não informado";
+            const obs = document.getElementById("observations").value || "Nenhuma observação registrada.";
+
+            let excelData = [
+                ["CHECKLIST DIÁRIO DE REINICIALIZAÇÃO DE AMBIENTES"],
+                ["Data:", date, "Responsável:", resp],
+                [],
+                ["--- SERVIDORES AZURE ---"],
+                ["Servidor", "Tipo", "Passo da Rotina", "Status"]
+            ];
+
+            azureServers.forEach((srv, srvIdx) => {
+                azureSteps.forEach((step, stepIdx) => {
+                    const cb = document.querySelector(`input[data-group="azure"][data-server="${srvIdx}"][data-step="${stepIdx}"]`);
+                    excelData.push([srv.name, srv.type, step, cb && cb.checked ? "CONCLUÍDO" : "PENDENTE"]);
+                });
+            });
+
+            excelData.push([]);
+            excelData.push(["--- AMBIENTES AWS ---"]);
+            excelData.push(["Ambiente", "Passo da Rotina", "Status", ""]);
+
+            awsEnvironments.forEach((env, envIdx) => {
+                awsSteps.forEach((step, stepIdx) => {
+                    const cb = document.querySelector(`input[data-group="aws"][data-env="${envIdx}"][data-step="${stepIdx}"]`);
+                    excelData.push([env, step, cb && cb.checked ? "CONCLUÍDO" : "PENDENTE", ""]);
+                });
+            });
+
+            excelData.push([]);
+            excelData.push(["--- OBSERVAÇÕES ---"]);
+            excelData.push([obs]);
+
+            const ws = XLSX.utils.aoa_to_sheet(excelData);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Checklist Diário");
+
+            XLSX.writeFile(wb, `Checklist_Ambientes_${date}.xlsx`);
+        }
+    </script>
+</body>
+</html>
