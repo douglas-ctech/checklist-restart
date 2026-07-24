@@ -1,768 +1,3 @@
-
-Conversa com o Gemini
-podemos criar uma página em HTML pra eu subir no meu github ?
-
-Eu preciso que essa lista fique no formato e organizada, a página precisa ser profissional e ter duas colunas de check box pras pessoas marcarem
-
-A primeira coluna deve ficar com uma bolinha preta e a coluna do lado com uma bolinha verde
-
-A lista deve estar em ordem com as seguintes informações:
-
-
-
-Azure:
-
-Scope Legado
-
-Scope NA
-
-
-
-AWS:
-
-Softcom
-
-Scope Legado
-
-Scope NA
-
-
-
-Elgin
-
-Scope Legado
-
-Scope NA
-
-
-
-Softom:
-
-Scope Legado
-
-Scope NA
-
-
-
-Compartilhado
-
-Scope Legado
-
-Scope NA
-
-
-
-Linear Sistemas
-
-Scope Legado
-
-Scope NA
-
-
-
-Procfit
-
-Scope Legado
-
-Scope NA
-
-
-
-Arius
-
-Scope Legado
-
-Scope NA
-
-
-
-Multiplus Card
-
-Scope Legado
-
-Scope NA
-
-
-
-- O ambiente Multiplus Card e o Azure Scope Legado devem estar marcados ja e não permitir que a pessoa faça alteração na coluna, por que somos obrigados a executar o processo todo dia, sendo assim vai permitir só que a pessoa coloque a bolinha verde na coluna do lado
-
-Preciso de um visual profissional com essa escala de cor e fonte da imagem que estou mandando
-
-Porem a ordem eu quero em LISTA não quero em card igual na foto
-
-Criei a página em HTML profissional e organizada no formato de lista (exatamente como solicitado, sem os cartões), incorporando a identidade visual, as cores (azul corporativo e detalhes em laranja) e a tipografia moderna do seu painel de referência.
-
-As duas colunas de marcação possuem as bolinhas (a primeira preta e a segunda verde). Além disso, o Azure Scope Legado e o Multiplus Card Scope Legado já vêm marcados de fábrica com travamento automático (disabled), impedindo alterações conforme sua regra de execução obrigatória diária, mas permitindo que a coluna ao lado (bolinha verde) seja marcada livremente.
-
-Você pode baixar o arquivo abaixo e subi-lo diretamente no seu repositório do GitHub (basta renomeá-lo para index.html caso queira ativar o GitHub Pages):
-Ícone do app HTML
-index
- HTML 
-Aberto
-
-Código Completo (index.html) caso queira copiar manualmente:
-HTML
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel de Controle - Escopo de Ambientes</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-blue: #0F294A;
-            --accent-orange: #FF7A00;
-            --bg-color: #F4F6F9;
-            --card-bg: #FFFFFF;
-            --text-main: #1E293B;
-            --text-muted: #64748B;
-            --border-color: #E2E8F0;
-            --black-dot: #1E293B;
-            --green-dot: #10B981;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.5;
-            padding: 40px 20px;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(15, 41, 74, 0.08);
-            overflow: hidden;
-            border-top: 5px solid var(--accent-orange);
-        }
-
-        .header {
-            background-color: var(--primary-blue);
-            color: #FFFFFF;
-            padding: 30px 40px;
-        }
-
-        .header h1 {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
-
-        .header p {
-            font-size: 14px;
-            color: #94A3B8;
-            font-weight: 400;
-        }
-
-        .content {
-            padding: 30px 40px;
-        }
-
-        .table-header {
-            display: grid;
-            grid-template-columns: 1fr 110px 110px;
-            padding: 12px 16px;
-            font-weight: 600;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--text-muted);
-            border-bottom: 2px solid var(--border-color);
-            margin-bottom: 10px;
-            align-items: center;
-        }
-
-        .table-header .col-center {
-            text-align: center;
-        }
-
-        .category-group {
-            margin-bottom: 24px;
-        }
-
-        .category-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin: 20px 0 10px 0;
-            padding-bottom: 6px;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .item-row {
-            display: grid;
-            grid-template-columns: 1fr 110px 110px;
-            padding: 12px 16px;
-            align-items: center;
-            border-radius: 6px;
-            transition: background 0.2s ease;
-        }
-
-        .item-row:hover {
-            background-color: #F8FAFC;
-        }
-
-        .item-name {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-main);
-        }
-
-        .col-center {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .checkbox-container {
-            display: inline-block;
-            position: relative;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        .checkbox-container input {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-            height: 0;
-            width: 0;
-        }
-
-        .checkmark-black {
-            height: 22px;
-            width: 22px;
-            background-color: #fff;
-            border: 2px solid #CBD5E1;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-
-        .checkbox-container input:checked ~ .checkmark-black {
-            background-color: var(--black-dot);
-            border-color: var(--black-dot);
-        }
-
-        .checkmark-black::after {
-            content: "";
-            position: absolute;
-            display: none;
-        }
-
-        .checkbox-container input:checked ~ .checkmark-black::after {
-            display: block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: white;
-        }
-
-        .checkmark-green {
-            height: 22px;
-            width: 22px;
-            background-color: #fff;
-            border: 2px solid #CBD5E1;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-
-        .checkbox-container input:checked ~ .checkmark-green {
-            background-color: var(--green-dot);
-            border-color: var(--green-dot);
-        }
-
-        .checkbox-container input:checked ~ .checkmark-green::after {
-            display: block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: white;
-        }
-
-        .checkbox-container input:disabled ~ .checkmark-black,
-        .checkbox-container input:disabled ~ .checkmark-green {
-            opacity: 0.8;
-            cursor: not-allowed;
-            background-color: #E2E8F0;
-            border-color: #CBD5E1;
-        }
-        
-        /* Specific enforced style for pre-checked locked items */
-        .checkbox-container input:disabled:checked ~ .checkmark-black {
-            background-color: var(--black-dot);
-            border-color: var(--black-dot);
-        }
-
-        .footer-actions {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .btn-reset {
-            background-color: #E2E8F0;
-            color: var(--text-main);
-            border: none;
-            padding: 10px 20px;
-            font-size: 13px;
-            font-weight: 600;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .btn-reset:hover {
-            background-color: #CBD5E1;
-        }
-
-        .status-info {
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                margin: 10px;
-            }
-            .header, .content {
-                padding: 20px;
-            }
-            .table-header, .item-row {
-                grid-template-columns: 1fr 90px 90px;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        <div class="header">
-            <h1>Painel de Controle - Escopo de Ambientes</h1>
-            <p>Central de verificação diária e acompanhamento de status</p>
-        </div>
-
-        <div class="content">
-            <div class="table-header">
-                <div>Ambiente / Escopo</div>
-                <div class="col-center">Bolinha Preta</div>
-                <div class="col-center">Bolinha Verde</div>
-            </div>
-
-            <form id="checkForm">
-                <!-- Azure -->
-                <div class="category-group">
-                    <div class="category-title">Azure</div>
-                    
-                    <div class="item-row">
-                        <div class="item-name">Scope Legado</div>
-                        <div class="col-center">
-                            <label class="checkbox-container" title="Obrigatório diário (Bloqueado)">
-                                <input type="checkbox" checked disabled>
-                                <span class="checkmark-black"></span>
-                            </label>
-                        </div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-green"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="item-row">
-                        <div class="item-name">Scope NA</div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-black"></span>
-                            </label>
-                        </div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-green"></span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- AWS -->
-                <div class="category-group">
-                    <div class="category-title">AWS</div>
-                    
-                    <div class="item-row">
-                        <div class="item-name">Softcom</div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-black"></span>
-                            </label>
-                        </div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-green"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="item-row">
-                        <div class="item-name">Scope Legado</div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-black"></span>
-                            </label>
-                        </div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-green"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="item-row">
-                        <div class="item-name">Scope NA</div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-black"></span>
-                            </label>
-                        </div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-green"></span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Elgin -->
-                <div class="category-group">
-                    <div class="category-title">Elgin</div>
-                    
-                    <div class="item-row">
-                        <div class="item-name">Scope Legado</div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-black"></span>
-                            </label>
-                        </div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-green"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="item-row">
-                        <div class="item-name">Scope NA</div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-black"></span>
-                            </label>
-                        </div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-green"></span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Softom -->
-                <div class="category-group">
-                    <div class="category-title">Softom</div>
-                    
-                    <div class="item-row">
-                        <div class="item-name">Scope Legado</div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-black"></span>
-                            </label>
-                        </div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-green"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="item-row">
-                        <div class="item-name">Scope NA</div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-black"></span>
-                            </label>
-                        </div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-green"></span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Compartilhado -->
-                <div class="category-group">
-                    <div class="category-title">Compartilhado</div>
-                    
-                    <div class="item-row">
-                        <div class="item-name">Scope Legado</div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-black"></span>
-                            </label>
-                        </div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-green"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="item-row">
-                        <div class="item-name">Scope NA</div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-black"></span>
-                            </label>
-                        </div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-green"></span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Linear Sistemas -->
-                <div class="category-group">
-                    <div class="category-title">Linear Sistemas</div>
-                    
-                    <div class="item-row">
-                        <div class="item-name">Scope Legado</div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-black"></span>
-                            </label>
-                        </div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-green"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="item-row">
-                        <div class="item-name">Scope NA</div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-black"></span>
-                            </label>
-                        </div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-green"></span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Procfit -->
-                <div class="category-group">
-                    <div class="category-title">Procfit</div>
-                    
-                    <div class="item-row">
-                        <div class="item-name">Scope Legado</div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-black"></span>
-                            </label>
-                        </div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-green"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="item-row">
-                        <div class="item-name">Scope NA</div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-black"></span>
-                            </label>
-                        </div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-green"></span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Arius -->
-                <div class="category-group">
-                    <div class="category-title">Arius</div>
-                    
-                    <div class="item-row">
-                        <div class="item-name">Scope Legado</div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-black"></span>
-                            </label>
-                        </div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-green"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="item-row">
-                        <div class="item-name">Scope NA</div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-black"></span>
-                            </label>
-                        </div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-green"></span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Multiplus Card -->
-                <div class="category-group">
-                    <div class="category-title">Multiplus Card</div>
-                    
-                    <div class="item-row">
-                        <div class="item-name">Scope Legado</div>
-                        <div class="col-center">
-                            <label class="checkbox-container" title="Obrigatório diário (Bloqueado)">
-                                <input type="checkbox" checked disabled>
-                                <span class="checkmark-black"></span>
-                            </label>
-                        </div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-green"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="item-row">
-                        <div class="item-name">Scope NA</div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-black"></span>
-                            </label>
-                        </div>
-                        <div class="col-center">
-                            <label class="checkbox-container">
-                                <input type="checkbox">
-                                <span class="checkmark-green"></span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="footer-actions">
-                    <span class="status-info">Processos obrigatórios estão travados por segurança.</span>
-                    <button type="reset" class="btn-reset">Limpar Seleções</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-</body>
-</html>
-esqueci que nessa página precisa ter o nome e a data da pessoa que execuou o processo
-
-Acrescenta também nesse código os campos pra eu colocar meu token do Github e faz com que quando a pessoa salvar a lista ele crie um arquivo de histórico jason no meu github pra assim todos verem a lista compartilhada e ver o que os outros fizeram de forma compartilhada
-
-Seu arquivo HTML atualizado está pronto!
-
-Adicionei os campos para você preencher seu Nome, a Data da execução, o seu Token do GitHub (Personal Access Token) e o Repositório (usuario/repositorio).
-
-Quando você clica em "Salvar no GitHub (JSON)", o script se conecta automaticamente à API do GitHub, cria ou atualiza um arquivo chamado historico_execucoes.json no seu repositório com o registro de todas as caixas marcadas, quem executou e quando. Assim, qualquer pessoa que acessar a página com os mesmos dados do repositório conseguirá ver o histórico compartilhado atualizado em tempo real.
-
-O arquivo gerado está disponível abaixo:
-Ícone do app HTML
-index
- HTML 
-Aberto
-
-O que foi adicionado:
-Campos de Identificação e Configuração: Inputs para Nome do Executor, Data (já preenchida com o dia de hoje), Repositório do GitHub e Token de Acesso Pessoal (ghp_...).
-
-Integração com a API do GitHub: Salva e lê um arquivo historico_execucoes.json no repositório via chamadas REST (GET e PUT).
-
-Persistência Local: Seus dados de token e repositório ficam salvos no localStorage do navegador para facilitar os próximos acessos sem precisar digitar tudo de novo.
-
-Histórico Compartilhado em Lista: Seção interativa que lista todas as execuções anteriores feitas por qualquer membro da equipe.
-
-
-
-
-O Gemini é uma IA e pode cometer erros.
-
-
-
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -1080,32 +315,46 @@ O Gemini é uma IA e pode cometer erros.
 
         .history-list {
             list-style: none;
-            max-height: 250px;
+            max-height: 400px;
             overflow-y: auto;
             border-top: 1px solid var(--border-color);
         }
 
-        .history-item {
-            padding: 10px 12px;
+        .history-card {
+            padding: 15px;
             border-bottom: 1px solid var(--border-color);
-            font-size: 13px;
+            background: #FAFAFB;
+            margin-bottom: 10px;
+            border-radius: 6px;
+        }
+
+        .history-card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        .history-item:hover {
-            background-color: #F8FAFC;
+            margin-bottom: 8px;
+            font-size: 14px;
         }
 
         .history-user {
-            font-weight: 600;
+            font-weight: 700;
             color: var(--primary-blue);
         }
 
         .history-date {
             color: var(--text-muted);
             font-size: 12px;
+        }
+
+        .history-items-list {
+            list-style-type: disc;
+            padding-left: 20px;
+            font-size: 13px;
+            color: var(--text-main);
+        }
+
+        .history-items-list li {
+            margin-bottom: 4px;
         }
 
         #statusMessage {
@@ -1549,11 +798,11 @@ O Gemini é uma IA e pode cometer erros.
                     <span>Histórico Compartilhado (JSON)</span>
                     <span id="historyCount" style="font-size: 12px; color: var(--text-muted);">0 registros</span>
                 </div>
-                <ul class="history-list" id="historyList">
-                    <li class="history-item" style="color: var(--text-muted); justify-content: center;">
+                <div id="historyList" class="history-list">
+                    <div style="padding: 15px; text-align: center; color: var(--text-muted);">
                         Clique em "Atualizar / Carregar Histórico" para ver as execuções salvas.
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -1696,19 +945,41 @@ O Gemini é uma IA e pode cometer erros.
                     document.getElementById('historyCount').textContent = `${history.length} registro(s)`;
 
                     history.forEach(entry => {
-                        const li = document.createElement('li');
-                        li.className = 'history-item';
-                        li.innerHTML = `
-                            <div>
-                                <span class="history-user">${entry.executor}</span> 
-                                <span style="font-size: 12px; color: var(--text-muted);">(${entry.data})</span>
+                        const card = document.createElement('div');
+                        card.className = 'history-card';
+                        
+                        // Build checked items list
+                        let itemsHtml = '';
+                        if (entry.itens && Array.isArray(entry.itens)) {
+                            const checkedItems = entry.itens.filter(i => i.bolinhaPreta || i.bolinhaVerde);
+                            if (checkedItems.length > 0) {
+                                itemsHtml = '<ul class="history-items-list">';
+                                checkedItems.forEach(i => {
+                                    let dots = [];
+                                    if (i.bolinhaPreta) dots.push('Preta');
+                                    if (i.bolinhaVerde) dots.push('Verde');
+                                    itemsHtml += `<li><b>${i.ambiente} - ${i.escopo}</b> [Bolinha: ${dots.join(', ')}]</li>`;
+                                });
+                                itemsHtml += '</ul>';
+                            } else {
+                                itemsHtml = '<p style="font-size: 12px; color: var(--text-muted);">Nenhum item marcado nesta execução.</p>';
+                            }
+                        }
+
+                        card.innerHTML = `
+                            <div class="history-card-header">
+                                <div>
+                                    <span class="history-user">${entry.executor}</span> 
+                                    <span class="history-date">(${entry.data})</span>
+                                </div>
+                                <div class="history-date">${new Date(entry.timestamp).toLocaleString()}</div>
                             </div>
-                            <div class="history-date">${new Date(entry.timestamp).toLocaleString()}</div>
+                            ${itemsHtml}
                         `;
-                        historyList.appendChild(li);
+                        historyList.appendChild(card);
                     });
                 } else {
-                    document.getElementById('historyList.innerHTML').innerHTML = '<li class="history-item" style="justify-content:center; color: var(--text-muted);">Nenhum histórico encontrado ainda no repositório.</li>';
+                    document.getElementById('historyList').innerHTML = '<div style="padding: 15px; text-align: center; color: var(--text-muted);">Nenhum histórico encontrado ainda no repositório.</div>';
                 }
             } catch (e) {
                 console.log('Não foi possível carregar o histórico automaticamente.', e);
@@ -1717,5 +988,3 @@ O Gemini é uma IA e pode cometer erros.
     </script>
 </body>
 </html>
-index.html
-Exibindo index.html.
