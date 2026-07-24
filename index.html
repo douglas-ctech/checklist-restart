@@ -250,6 +250,11 @@
             border-color: var(--black-dot);
         }
 
+        .checkbox-container input:disabled:checked ~ .checkmark-green {
+            background-color: var(--green-dot);
+            border-color: var(--green-dot);
+        }
+
         .footer-actions {
             margin-top: 30px;
             padding-top: 20px;
@@ -417,18 +422,18 @@
                 </div>
                 <div class="form-group">
                     <label for="ghRepo">Repositório (usuario/repo) *</label>
-                    <input type="text" id="ghRepo" placeholder="ex: seu-usuario/seu-repositorio">
+                    <input type="text" id="ghRepo" value="douglas-ctech/checklist-restart" placeholder="ex: seu-usuario/seu-repositorio" required>
                 </div>
                 <div class="form-group">
                     <label for="ghToken">GitHub Personal Access Token *</label>
-                    <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+                    <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" required>
                 </div>
             </div>
 
             <div class="table-header">
                 <div>Ambiente / Escopo</div>
-                <div class="col-center">Bolinha Preta</div>
-                <div class="col-center">Bolinha Verde</div>
+                <div class="col-center">Status 1</div>
+                <div class="col-center">Status 2</div>
             </div>
 
             <form id="checkForm" onsubmit="event.preventDefault(); saveToGitHub();">
@@ -768,13 +773,13 @@
                         <div class="item-name">Scope NA</div>
                         <div class="col-center">
                             <label class="checkbox-container">
-                                <input type="checkbox" class="chk-black" data-env="Multiplus Card - Scope NA">
+                                <input type="checkbox" class="chk-black" data-env="Multiplus Card - Scope NA" checked disabled>
                                 <span class="checkmark-black"></span>
                             </label>
                         </div>
                         <div class="col-center">
                             <label class="checkbox-container">
-                                <input type="checkbox" class="chk-green" data-env="Multiplus Card - Scope NA">
+                                <input type="checkbox" class="chk-green" data-env="Multiplus Card - Scope NA" checked disabled>
                                 <span class="checkmark-green"></span>
                             </label>
                         </div>
@@ -811,9 +816,14 @@
         // Set default date to today
         document.getElementById('execDate').valueAsDate = new Date();
 
-        // Load saved credentials from localStorage if available
+        // Load saved credentials from localStorage if available (except repo which defaults as requested)
         window.addEventListener('DOMContentLoaded', () => {
-            if (localStorage.getItem('gh_repo')) document.getElementById('ghRepo').value = localStorage.getItem('gh_repo');
+            const repoInput = document.getElementById('ghRepo');
+            if (localStorage.getItem('gh_repo')) {
+                repoInput.value = localStorage.getItem('gh_repo');
+            } else {
+                repoInput.value = 'douglas-ctech/checklist-restart';
+            }
             if (localStorage.getItem('gh_token')) document.getElementById('ghToken').value = localStorage.getItem('gh_token');
             if (localStorage.getItem('exec_name')) document.getElementById('execName').value = localStorage.getItem('exec_name');
             loadGitHubHistory();
@@ -956,9 +966,9 @@
                                 itemsHtml = '<ul class="history-items-list">';
                                 checkedItems.forEach(i => {
                                     let dots = [];
-                                    if (i.bolinhaPreta) dots.push('Preta');
-                                    if (i.bolinhaVerde) dots.push('Verde');
-                                    itemsHtml += `<li><b>${i.ambiente} - ${i.escopo}</b> [Bolinha: ${dots.join(', ')}]</li>`;
+                                    if (i.bolinhaPreta) dots.push('Status 1');
+                                    if (i.bolinhaVerde) dots.push('Status 2');
+                                    itemsHtml += `<li><b>${i.ambiente} - ${i.escopo}</b> [${dots.join(', ')}]</li>`;
                                 });
                                 itemsHtml += '</ul>';
                             } else {
