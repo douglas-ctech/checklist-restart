@@ -2,7 +2,7 @@
   {
     "executor": "Douglas Lima",
     "data": "2026-07-28",
-    "timestamp": "2026-07-24T20:45:41.642Z",
+    "timestamp": "2026-07-24T20:55:06.170Z",
     "itens": [
       {
         "ambiente": "Azure",
@@ -91,7 +91,7 @@
       {
         "ambiente": "Procfit",
         "escopo": "Scope NA",
-        "bolinhaPreta": false,
+        "bolinhaPreta": true,
         "bolinhaVerde": false
       },
       {
