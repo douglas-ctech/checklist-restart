@@ -800,12 +800,12 @@
             <!-- Histórico Compartilhado -->
             <div class="history-section">
                 <div class="history-title">
-                    <span>Histórico Compartilhado (JSON)</span>
+                    <span>Histórico da Data Selecionada</span>
                     <span id="historyCount" style="font-size: 12px; color: var(--text-muted);">0 registros</span>
                 </div>
                 <div id="historyList" class="history-list">
                     <div style="padding: 15px; text-align: center; color: var(--text-muted);">
-                        Clique em "Atualizar / Carregar Histórico" para ver as execuções salvas.
+                        Selecione uma data para ver as opções marcadas.
                     </div>
                 </div>
             </div>
@@ -959,25 +959,31 @@
                     const historyList = document.getElementById('historyList');
                     historyList.innerHTML = '';
 
-                    document.getElementById('historyCount').textContent = `${history.length} registro(s)`;
+                    // Filter history to ONLY show the entry matching the selected date
+                    const matchedEntry = history.find(entry => entry.data === selectedDate);
 
-                    let matchedEntry = null;
-
-                    history.forEach(entry => {
-                        if (entry.data === selectedDate && !matchedEntry) {
-                            matchedEntry = entry;
+                    if (matchedEntry) {
+                        document.getElementById('historyCount').textContent = '1 registro encontrado';
+                        
+                        // Fill executor name if saved
+                        if (matchedEntry.executor) {
+                            document.getElementById('execName').value = matchedEntry.executor;
                         }
 
+                        // Build card for the selected date
                         const card = document.createElement('div');
                         card.className = 'history-card';
                         
                         let itemsHtml = '';
-                        if (entry.itens && Array.isArray(entry.itens)) {
-                            const checkedItems = entry.itens.filter(i => i.bolinhaPreta || i.bolinhaVerde);
+                        if (matchedEntry.itens && Array.isArray(matchedEntry.itens)) {
+                            const checkedItems = matchedEntry.itens.filter(i => i.bolinhaPreta || i.bolinhaVerde);
                             if (checkedItems.length > 0) {
                                 itemsHtml = '<ul class="history-items-list">';
                                 checkedItems.forEach(i => {
-                                    let text = `${i.ambiente} - ${i.escopo}`;
+                                    let statusText = [];
+                                    if (i.bolinhaPreta) statusText.push('Status 1');
+                                    if (i.bolinhaVerde) statusText.push('Status 2');
+                                    let text = `${i.ambiente} - ${i.escopo} (${statusText.join(' e ')})`;
                                     itemsHtml += `<li><b>${text}</b></li>`;
                                 });
                                 itemsHtml += '</ul>';
@@ -989,22 +995,17 @@
                         card.innerHTML = `
                             <div class="history-card-header">
                                 <div>
-                                    <span class="history-user">${entry.executor}</span> 
-                                    <span class="history-date">(${entry.data})</span>
+                                    <span class="history-user">${matchedEntry.executor}</span> 
+                                    <span class="history-date">(${matchedEntry.data})</span>
                                 </div>
-                                <div class="history-date">${new Date(entry.timestamp).toLocaleString()}</div>
+                                <div class="history-date">${new Date(matchedEntry.timestamp).toLocaleString()}</div>
                             </div>
                             ${itemsHtml}
                         `;
                         historyList.appendChild(card);
-                    });
 
-                    // Reset and update checkboxes based on matched date entry
-                    resetFormState();
-                    if (matchedEntry && matchedEntry.itens) {
-                        if (matchedEntry.executor) {
-                            document.getElementById('execName').value = matchedEntry.executor;
-                        }
+                        // Update checkboxes
+                        resetFormState();
                         matchedEntry.itens.forEach(i => {
                             const rows = document.querySelectorAll('.item-row');
                             rows.forEach(row => {
@@ -1018,6 +1019,12 @@
                                 }
                             });
                         });
+
+                    } else {
+                        // If no entry exists for this date
+                        document.getElementById('historyCount').textContent = '0 registros';
+                        historyList.innerHTML = `<div style="padding: 15px; text-align: center; color: var(--text-muted);">Nenhum histórico encontrado para a data ${selectedDate.split('-').reverse().join('/')}.</div>`;
+                        resetFormState();
                     }
 
                 } else if (res.status === 404) {
