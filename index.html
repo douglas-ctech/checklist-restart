@@ -12,8 +12,12 @@
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: #f8fafc;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
             color: #1e293b;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
         }
     </style>
 </head>
@@ -21,34 +25,37 @@
     <div class="max-w-4xl mx-auto space-y-6">
         
         <!-- Header -->
-        <header class="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <header class="glass-card border border-slate-200/80 rounded-3xl p-6 sm:p-8 shadow-xl shadow-slate-200/50">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <h1 class="text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
-                        <span class="text-amber-500">⚡</span> Checklist Diário de Ambientes
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200/60 text-amber-700 text-xs font-semibold mb-3">
+                        <span>⚡</span> Conexão Tech • Suporte Operacional
+                    </div>
+                    <h1 class="text-2xl font-bold text-slate-900 tracking-tight">
+                        Checklist Diário de Ambientes
                     </h1>
                     <p class="text-slate-500 text-xs font-medium mt-1">Rotina de reinicialização de servidores Azure e AWS • Agenda Compartilhada</p>
                 </div>
                 <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
                     <div>
                         <label class="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Data</label>
-                        <input type="date" id="checkDate" class="bg-slate-50/50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 focus:outline-none focus:border-amber-500 focus:bg-white transition">
+                        <input type="date" id="checkDate" class="bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-medium text-slate-700 focus:outline-none focus:border-amber-500 focus:bg-white transition shadow-2xs">
                     </div>
                     <div>
                         <label class="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Responsável</label>
-                        <input type="text" id="respName" placeholder="Seu nome" class="bg-slate-50/50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 focus:outline-none focus:border-amber-500 focus:bg-white transition">
+                        <input type="text" id="respName" placeholder="Seu nome" class="bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-medium text-slate-700 focus:outline-none focus:border-amber-500 focus:bg-white transition shadow-2xs">
                     </div>
                 </div>
             </div>
 
             <!-- Configurações do GitHub (Token Compartilhado) -->
-            <div class="mt-5 pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="mt-6 pt-5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div class="w-full sm:w-auto flex-1">
-                    <label class="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1">GitHub Personal Access Token (necessário para sincronizar com a equipe)</label>
-                    <input type="password" id="githubTokenInput" placeholder="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" class="w-full bg-slate-50/50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-mono text-slate-700 focus:outline-none focus:border-amber-500 focus:bg-white transition" onchange="saveTokenLocally()">
+                    <label class="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1">GitHub Personal Access Token (Sincronização com a Equipe)</label>
+                    <input type="password" id="githubTokenInput" placeholder="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" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-mono text-slate-700 focus:outline-none focus:border-amber-500 focus:bg-white transition shadow-2xs" onchange="saveTokenLocally()">
                 </div>
-                <div class="self-end sm:self-auto text-[11px] text-slate-400">
-                    O token fica salvo apenas no seu navegador.
+                <div class="self-end sm:self-auto text-[11px] text-slate-400 text-right">
+                    Salvo apenas no seu navegador.
                 </div>
             </div>
         </header>
@@ -57,68 +64,72 @@
         <main class="space-y-6">
             
             <!-- Azure Section -->
-            <section class="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm">
-                <div class="flex items-center justify-between mb-5 border-b border-slate-100 pb-3">
-                    <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-blue-500"></span> Servidores Azure
-                    </h2>
-                    <span class="text-[11px] font-semibold bg-blue-50 text-blue-700 px-2.5 py-1 rounded-lg border border-blue-100">3 TCP • 2 HTTPS</span>
+            <section class="glass-card border border-slate-200/80 rounded-3xl p-6 sm:p-8 shadow-xl shadow-slate-200/50">
+                <div class="flex items-center justify-between mb-6 border-b border-slate-100 pb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 font-bold text-xs shadow-2xs">AZ</div>
+                        <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider">Servidores Azure</h2>
+                    </div>
+                    <span class="text-[11px] font-semibold bg-blue-50 text-blue-700 px-3 py-1 rounded-xl border border-blue-100">3 TCP • 2 HTTPS</span>
                 </div>
                 <div id="azureContainer" class="space-y-4"></div>
             </section>
 
             <!-- AWS Section -->
-            <section class="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm">
-                <div class="flex items-center justify-between mb-5 border-b border-slate-100 pb-3">
-                    <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-amber-500"></span> Ambientes AWS
-                    </h2>
-                    <span class="text-[11px] font-semibold bg-amber-50 text-amber-700 px-2.5 py-1 rounded-lg border border-amber-100">7 Ambientes</span>
+            <section class="glass-card border border-slate-200/80 rounded-3xl p-6 sm:p-8 shadow-xl shadow-slate-200/50">
+                <div class="flex items-center justify-between mb-6 border-b border-slate-100 pb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600 font-bold text-xs shadow-2xs">AWS</div>
+                        <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider">Ambientes AWS</h2>
+                    </div>
+                    <span class="text-[11px] font-semibold bg-amber-50 text-amber-700 px-3 py-1 rounded-xl border border-amber-100">7 Ambientes</span>
                 </div>
                 <div id="awsContainer" class="space-y-4"></div>
             </section>
 
             <!-- Observations -->
-            <section class="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm">
-                <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-2">📝 Observações / Ocorrências</h2>
-                <textarea id="observations" rows="3" placeholder="Registre aqui se houve falhas, lentidão ou comportamento atípico..." class="w-full bg-slate-50/50 border border-slate-200 rounded-xl p-3 text-xs font-medium text-slate-700 focus:outline-none focus:border-amber-500 focus:bg-white transition resize-none"></textarea>
+            <section class="glass-card border border-slate-200/80 rounded-3xl p-6 sm:p-8 shadow-xl shadow-slate-200/50">
+                <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-3 flex items-center gap-2">
+                    <span>📝</span> Observações / Ocorrências
+                </h2>
+                <textarea id="observations" rows="3" placeholder="Registre aqui se houve falhas, lentidão ou comportamento atípico..." class="w-full bg-slate-50 border border-slate-200 rounded-2xl p-4 text-xs font-medium text-slate-700 focus:outline-none focus:border-amber-500 focus:bg-white transition resize-none shadow-2xs"></textarea>
             </section>
 
             <!-- Actions -->
-            <div class="flex flex-col sm:flex-row justify-between items-center gap-3 pt-1">
-                <button onclick="resetChecklist()" class="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-rose-200 text-rose-600 hover:bg-rose-50 text-xs font-semibold transition">
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-3 pt-2">
+                <button onclick="resetChecklist()" class="w-full sm:w-auto px-5 py-3 rounded-2xl border border-rose-200 text-rose-600 hover:bg-rose-50/80 text-xs font-bold transition shadow-2xs">
                     Limpar Formulário
                 </button>
-                <div class="flex flex-col sm:flex-row gap-2.5 w-full sm:w-auto">
-                    <button onclick="saveToGitHub()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs shadow-sm transition flex items-center justify-center gap-2">
+                <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+                    <button onclick="saveToGitHub()" class="w-full sm:w-auto px-6 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-md hover:shadow-lg transition flex items-center justify-center gap-2">
                         <span>☁️</span> Salvar na Agenda Global
                     </button>
-                    <button onclick="exportToExcel()" class="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-500 text-slate-950 font-semibold text-xs shadow-sm transition">
+                    <button onclick="exportToExcel()" class="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-amber-400 hover:bg-amber-500 text-slate-950 font-bold text-xs shadow-md hover:shadow-lg transition">
                         <span>📊</span> Baixar Excel
                     </button>
                 </div>
             </div>
 
             <!-- History Section (Agenda Compartilhada) -->
-            <section class="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm mt-8">
-                <div class="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
+            <section class="glass-card border border-slate-200/80 rounded-3xl p-6 sm:p-8 shadow-xl shadow-slate-200/50 mt-8">
+                <div class="flex items-center justify-between mb-5 border-b border-slate-100 pb-4">
                     <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
                         <span>📅</span> Agenda Compartilhada (Equipe)
                     </h2>
-                    <button onclick="loadHistory()" class="text-xs text-blue-600 hover:text-blue-800 font-semibold flex items-center gap-1">🔄 Atualizar Agenda</button>
+                    <button onclick="loadHistory()" class="text-xs text-blue-600 hover:text-blue-800 font-bold flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-50 border border-blue-100 transition">🔄 Atualizar Agenda</button>
                 </div>
                 <div class="overflow-x-auto">
                     <table class="w-full text-left text-xs">
                         <thead class="bg-slate-50 text-slate-500 uppercase tracking-wider border-b border-slate-200">
                             <tr>
-                                <th class="p-3 font-semibold">Data</th>
-                                <th class="p-3 font-semibold">Responsável</th>
-                                <th class="p-3 font-semibold">Observações</th>
-                                <th class="p-3 text-right font-semibold">Ações</th>
+                                <th class="p-3 font-bold rounded-l-xl">Data</th>
+                                <th class="p-3 font-bold">Responsável</th>
+                                <th class="p-3 font-bold">Observações</th>
+                                <th class="p-3 text-right font-bold rounded-r-xl">Ações</th>
                             </tr>
                         </thead>
                         <tbody id="historyTableBody" class="divide-y divide-slate-100 text-slate-600">
-                            <tr><td colspan="4" class="p-4 text-center text-slate-400">Carregando histórico do GitHub...</td></tr>
+                            <tr><td colspan="4" class="p-6 text-center text-slate-400">Carregando histórico do GitHub...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -164,7 +175,6 @@
         document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("checkDate").valueAsDate = new Date();
             
-            // Carregar token salvo localmente se houver
             const savedToken = localStorage.getItem("gh_checklist_token");
             if (savedToken) {
                 document.getElementById("githubTokenInput").value = savedToken;
@@ -185,21 +195,21 @@
             container.innerHTML = "";
             azureServers.forEach((srv, srvIdx) => {
                 let stepsHtml = azureSteps.map((step, stepIdx) => `
-                    <label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-50/60 border border-slate-200/60 hover:bg-slate-50 cursor-pointer select-none transition">
+                    <label class="flex items-center gap-3 p-3 rounded-2xl bg-slate-50/80 border border-slate-200/60 hover:bg-white hover:border-slate-300 cursor-pointer select-none transition shadow-2xs">
                         <input type="checkbox" data-group="azure" data-server="${srvIdx}" data-step="${stepIdx}" class="w-4 h-4 rounded border-slate-300 text-amber-500 focus:ring-amber-500">
                         <span class="text-xs text-slate-700 font-medium">${step}</span>
                     </label>
                 `).join('');
 
                 container.innerHTML += `
-                    <div class="bg-white border border-slate-200/80 rounded-xl p-4 shadow-2xs">
-                        <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
+                    <div class="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-xs">
+                        <div class="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
                             <span class="font-bold text-slate-800 text-xs flex items-center gap-2">
-                                <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> ${srv.name} <span class="text-slate-400 font-mono font-normal">(${srv.ip})</span>
+                                <span class="w-2 h-2 rounded-full bg-blue-500"></span> ${srv.name} <span class="text-slate-400 font-mono font-normal">(${srv.ip})</span>
                             </span>
-                            <span class="text-[10px] font-semibold text-slate-500 uppercase">${srv.type}</span>
+                            <span class="text-[10px] font-bold px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600">${srv.type}</span>
                         </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
                             ${stepsHtml}
                         </div>
                     </div>
@@ -212,25 +222,25 @@
             container.innerHTML = "";
             awsEnvironments.forEach((env, envIdx) => {
                 let stepsHtml = awsSteps.map((step, stepIdx) => `
-                    <label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-50/60 border border-slate-200/60 hover:bg-slate-50 cursor-pointer select-none transition step-item-${envIdx}">
+                    <label class="flex items-center gap-3 p-3 rounded-2xl bg-slate-50/80 border border-slate-200/60 hover:bg-white hover:border-slate-300 cursor-pointer select-none transition shadow-2xs">
                         <input type="checkbox" data-group="aws" data-env="${envIdx}" data-step="${stepIdx}" class="w-4 h-4 rounded border-slate-300 text-amber-500 focus:ring-amber-500">
                         <span class="text-xs text-slate-700 font-medium">${step}</span>
                     </label>
                 `).join('');
 
                 container.innerHTML += `
-                    <div class="bg-white border border-slate-200/80 rounded-xl p-4 shadow-2xs" id="aws-env-box-${envIdx}">
-                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3 border-b border-slate-100 pb-2 gap-2">
+                    <div class="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-xs">
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 border-b border-slate-100 pb-3 gap-3">
                             <span class="font-bold text-slate-800 text-xs flex items-center gap-2">
-                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Ambiente - ${env}
+                                <span class="w-2 h-2 rounded-full bg-amber-500"></span> Ambiente - ${env}
                             </span>
-                            <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 px-2.5 py-1 rounded-lg">
-                                <span class="text-[11px] font-semibold text-slate-600">Reinicio NA:</span>
-                                <label class="text-[11px] font-medium text-slate-600 cursor-pointer"><input type="radio" name="na_${envIdx}" value="sim" onchange="toggleNa(${envIdx}, true)"> Sim</label>
-                                <label class="text-[11px] font-medium text-slate-600 cursor-pointer ml-1"><input type="radio" name="na_${envIdx}" value="nao" checked onchange="toggleNa(${envIdx}, false)"> Não</label>
+                            <div class="flex items-center gap-2.5 bg-slate-50 border border-slate-200/80 px-3 py-1.5 rounded-xl">
+                                <span class="text-[11px] font-bold text-slate-600">Reiniciei NA:</span>
+                                <label class="text-[11px] font-semibold text-slate-600 cursor-pointer flex items-center gap-1"><input type="radio" name="na_${envIdx}" value="sim"> Sim</label>
+                                <label class="text-[11px] font-semibold text-slate-600 cursor-pointer flex items-center gap-1 ml-1"><input type="radio" name="na_${envIdx}" value="nao" checked> Não</label>
                             </div>
                         </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 steps-container-${envIdx}">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                             ${stepsHtml}
                         </div>
                     </div>
@@ -238,23 +248,10 @@
             });
         }
 
-        function toggleNa(envIdx, isNa) {
-            const container = document.querySelector(`.steps-container-${envIdx}`);
-            const checkboxes = container.querySelectorAll("input[type='checkbox']");
-            if (isNa) {
-                checkboxes.forEach(cb => { cb.checked = false; cb.disabled = true; });
-                container.style.opacity = "0.4";
-            } else {
-                checkboxes.forEach(cb => { cb.disabled = false; });
-                container.style.opacity = "1";
-            }
-        }
-
         function resetChecklist() {
             if (confirm("Deseja realmente limpar todas as marcações?")) {
-                document.querySelectorAll("input[type='checkbox']").forEach(cb => { cb.checked = false; cb.disabled = false; });
+                document.querySelectorAll("input[type='checkbox']").forEach(cb => cb.checked = false);
                 document.querySelectorAll("input[type='radio'][value='nao']").forEach(rb => rb.checked = true);
-                document.querySelectorAll("[class*='steps-container-']").forEach(c => c.style.opacity = "1");
                 document.getElementById("observations").value = "";
             }
         }
@@ -286,7 +283,7 @@
                 const response = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${FILE_PATH}`);
                 if (!response.ok) {
                     if (response.status === 404) {
-                        tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-400">Nenhum registro no GitHub ainda.</td></tr>`;
+                        tbody.innerHTML = `<tr><td colspan="4" class="p-6 text-center text-slate-400">Nenhum registro no GitHub ainda.</td></tr>`;
                         return;
                     }
                     throw new Error("Erro ao buscar histórico");
@@ -300,26 +297,26 @@
                 renderHistoryTable(window.globalHistory);
             } catch (error) {
                 console.error(error);
-                tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-rose-400">Erro ao carregar agenda compartilhada. Verifique se o repositório existe.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="4" class="p-6 text-center text-rose-400">Erro ao carregar agenda compartilhada. Verifique se o repositório existe.</td></tr>`;
             }
         }
 
         function renderHistoryTable(history) {
             const tbody = document.getElementById("historyTableBody");
             if (!history || history.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-400">Nenhum registro encontrado.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="4" class="p-6 text-center text-slate-400">Nenhum registro encontrado.</td></tr>`;
                 return;
             }
 
             tbody.innerHTML = "";
             history.forEach(item => {
                 tbody.innerHTML += `
-                    <tr class="hover:bg-slate-50 transition">
-                        <td class="p-3 font-semibold">${item.date}</td>
-                        <td class="p-3">${item.resp}</td>
+                    <tr class="hover:bg-slate-50/80 transition">
+                        <td class="p-3 font-bold">${item.date}</td>
+                        <td class="p-3 font-medium">${item.resp}</td>
                         <td class="p-3 text-slate-500 truncate max-w-xs">${item.obs || '-'}</td>
                         <td class="p-3 text-right">
-                            <button onclick="loadRecord(${item.id})" class="text-blue-600 hover:text-blue-800 font-semibold">Carregar</button>
+                            <button onclick="loadRecord(${item.id})" class="px-3 py-1.5 rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-100 font-bold text-xs transition">Carregar</button>
                         </td>
                     </tr>
                 `;
@@ -411,14 +408,12 @@
                         const radioNao = document.querySelector(`input[name="na_${envIdx}"][value="nao"]`);
                         if (envState.na) {
                             if (radioSim) radioSim.checked = true;
-                            toggleNa(envIdx, true);
                         } else {
                             if (radioNao) radioNao.checked = true;
-                            toggleNa(envIdx, false);
-                            for (let stepIdx in envState.steps) {
-                                let cb = document.querySelector(`input[data-group="aws"][data-env="${envIdx}"][data-step="${stepIdx}"]`);
-                                if (cb) cb.checked = envState.steps[stepIdx];
-                            }
+                        }
+                        for (let stepIdx in envState.steps) {
+                            let cb = document.querySelector(`input[data-group="aws"][data-env="${envIdx}"][data-step="${stepIdx}"]`);
+                            if (cb) cb.checked = envState.steps[stepIdx];
                         }
                     }
                 });
@@ -449,14 +444,14 @@
 
             excelData.push([]);
             excelData.push(["--- AMBIENTES AWS ---"]);
-            excelData.push(["Ambiente", "Reinicio NA", "Passo da Rotina", "Status"]);
+            excelData.push(["Ambiente", "Reiniciei NA", "Passo da Rotina", "Status"]);
 
             awsEnvironments.forEach((env, envIdx) => {
                 const naSim = document.querySelector(`input[name="na_${envIdx}"][value="sim"]`);
                 const isNa = naSim && naSim.checked ? "SIM" : "NÃO";
                 awsSteps.forEach((step, stepIdx) => {
                     const cb = document.querySelector(`input[data-group="aws"][data-env="${envIdx}"][data-step="${stepIdx}"]`);
-                    excelData.push([env, isNa, step, isNa === "SIM" ? "N/A" : (cb && cb.checked ? "CONCLUÍDO" : "PENDENTE")]);
+                    excelData.push([env, isNa, step, cb && cb.checked ? "CONCLUÍDO" : "PENDENTE"]);
                 });
             });
 
