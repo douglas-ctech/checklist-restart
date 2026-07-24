@@ -892,7 +892,7 @@
                 if (getRes.ok) {
                     const fileData = await getRes.json();
                     sha = fileData.sha;
-                    const decodedContent = decodeURIComponent(escape(atob(fileData.content)));
+                    const decodedContent = decodeURIComponent(escape(atob(fileData.content.replace(/\s/g, ''))));
                     existingData = JSON.parse(decodedContent);
                     if (!Array.isArray(existingData)) existingData = [existingData];
                 }
@@ -946,7 +946,7 @@
                 const res = await fetch(apiUrl, { headers });
                 if (res.ok) {
                     const fileData = await res.json();
-                    const decodedContent = decodeURIComponent(escape(atob(fileData.content)));
+                    const decodedContent = decodeURIComponent(escape(atob(fileData.content.replace(/\s/g, ''))));
                     const history = JSON.parse(decodedContent);
 
                     const historyList = document.getElementById('historyList');
@@ -966,9 +966,9 @@
                                 itemsHtml = '<ul class="history-items-list">';
                                 checkedItems.forEach(i => {
                                     let dots = [];
-                                    if (i.bolinhaPreta) dots.push('Status 1');
-                                    if (i.bolinhaVerde) dots.push('Status 2');
-                                    itemsHtml += `<li><b>${i.ambiente} - ${i.escopo}</b> [${dots.join(', ')}]</li>`;
+                                    if (i.bolinhaPreta) dots.push('Bolinha Preta');
+                                    if (i.bolinhaVerde) dots.push('Bolinha Verde');
+                                    itemsHtml += `<li><b>${i.ambiente} - ${i.escopo}</b>: ${dots.join(' e ')}</li>`;
                                 });
                                 itemsHtml += '</ul>';
                             } else {
