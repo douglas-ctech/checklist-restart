@@ -905,7 +905,6 @@
                     if (!Array.isArray(existingData)) existingData = [existingData];
                 }
 
-                // Remove existing entry for the same date if it exists to avoid duplicates per day, or prepend new
                 existingData = existingData.filter(entry => entry.data !== date);
                 existingData.unshift(currentEntry);
 
@@ -962,7 +961,6 @@
 
                     document.getElementById('historyCount').textContent = `${history.length} registro(s)`;
 
-                    // Find if there is an entry matching the selected date
                     let matchedEntry = null;
 
                     history.forEach(entry => {
@@ -1001,7 +999,7 @@
                         historyList.appendChild(card);
                     });
 
-                    // Update checkboxes based on matched date entry
+                    // Reset and update checkboxes based on matched date entry
                     resetFormState();
                     if (matchedEntry && matchedEntry.itens) {
                         if (matchedEntry.executor) {
