@@ -418,7 +418,7 @@
                 </div>
                 <div class="form-group">
                     <label for="execDate">Data da Execução *</label>
-                    <input type="date" id="execDate" required>
+                    <input type="date" id="execDate" onchange="loadGitHubHistory()" required>
                 </div>
                 <div class="form-group">
                     <label for="ghRepo">Repositório (usuario/repo) *</label>
@@ -441,7 +441,7 @@
                 <div class="category-group">
                     <div class="category-title">Azure</div>
                     
-                    <div class="item-row">
+                    <div class="item-row" data-category="Azure" data-scope="Scope Legado">
                         <div class="item-name">Scope Legado</div>
                         <div class="col-center">
                             <label class="checkbox-container">
@@ -457,7 +457,7 @@
                         </div>
                     </div>
 
-                    <div class="item-row">
+                    <div class="item-row" data-category="Azure" data-scope="Scope NA">
                         <div class="item-name">Scope NA</div>
                         <div class="col-center">
                             <label class="checkbox-container">
@@ -478,7 +478,7 @@
                 <div class="category-group">
                     <div class="category-title">AWS</div>
                     
-                    <div class="item-row">
+                    <div class="item-row" data-category="AWS" data-scope="Softcom">
                         <div class="item-name">Softcom</div>
                         <div class="col-center">
                             <label class="checkbox-container">
@@ -494,7 +494,7 @@
                         </div>
                     </div>
 
-                    <div class="item-row">
+                    <div class="item-row" data-category="AWS" data-scope="Scope Legado">
                         <div class="item-name">Scope Legado</div>
                         <div class="col-center">
                             <label class="checkbox-container">
@@ -510,7 +510,7 @@
                         </div>
                     </div>
 
-                    <div class="item-row">
+                    <div class="item-row" data-category="AWS" data-scope="Scope NA">
                         <div class="item-name">Scope NA</div>
                         <div class="col-center">
                             <label class="checkbox-container">
@@ -531,7 +531,7 @@
                 <div class="category-group">
                     <div class="category-title">Elgin</div>
                     
-                    <div class="item-row">
+                    <div class="item-row" data-category="Elgin" data-scope="Scope Legado">
                         <div class="item-name">Scope Legado</div>
                         <div class="col-center">
                             <label class="checkbox-container">
@@ -547,7 +547,7 @@
                         </div>
                     </div>
 
-                    <div class="item-row">
+                    <div class="item-row" data-category="Elgin" data-scope="Scope NA">
                         <div class="item-name">Scope NA</div>
                         <div class="col-center">
                             <label class="checkbox-container">
@@ -568,7 +568,7 @@
                 <div class="category-group">
                     <div class="category-title">Softom</div>
                     
-                    <div class="item-row">
+                    <div class="item-row" data-category="Softom" data-scope="Scope Legado">
                         <div class="item-name">Scope Legado</div>
                         <div class="col-center">
                             <label class="checkbox-container">
@@ -584,7 +584,7 @@
                         </div>
                     </div>
 
-                    <div class="item-row">
+                    <div class="item-row" data-category="Softom" data-scope="Scope NA">
                         <div class="item-name">Scope NA</div>
                         <div class="col-center">
                             <label class="checkbox-container">
@@ -605,7 +605,7 @@
                 <div class="category-group">
                     <div class="category-title">Compartilhado</div>
                     
-                    <div class="item-row">
+                    <div class="item-row" data-category="Compartilhado" data-scope="Scope Legado">
                         <div class="item-name">Scope Legado</div>
                         <div class="col-center">
                             <label class="checkbox-container">
@@ -621,7 +621,7 @@
                         </div>
                     </div>
 
-                    <div class="item-row">
+                    <div class="item-row" data-category="Compartilhado" data-scope="Scope NA">
                         <div class="item-name">Scope NA</div>
                         <div class="col-center">
                             <label class="checkbox-container">
@@ -642,7 +642,7 @@
                 <div class="category-group">
                     <div class="category-title">Linear Sistemas</div>
                     
-                    <div class="item-row">
+                    <div class="item-row" data-category="Linear Sistemas" data-scope="Scope Legado">
                         <div class="item-name">Scope Legado</div>
                         <div class="col-center">
                             <label class="checkbox-container">
@@ -658,7 +658,7 @@
                         </div>
                     </div>
 
-                    <div class="item-row">
+                    <div class="item-row" data-category="Linear Sistemas" data-scope="Scope NA">
                         <div class="item-name">Scope NA</div>
                         <div class="col-center">
                             <label class="checkbox-container">
@@ -679,7 +679,7 @@
                 <div class="category-group">
                     <div class="category-title">Procfit</div>
                     
-                    <div class="item-row">
+                    <div class="item-row" data-category="Procfit" data-scope="Scope Legado">
                         <div class="item-name">Scope Legado</div>
                         <div class="col-center">
                             <label class="checkbox-container">
@@ -695,7 +695,7 @@
                         </div>
                     </div>
 
-                    <div class="item-row">
+                    <div class="item-row" data-category="Procfit" data-scope="Scope NA">
                         <div class="item-name">Scope NA</div>
                         <div class="col-center">
                             <label class="checkbox-container">
@@ -716,7 +716,7 @@
                 <div class="category-group">
                     <div class="category-title">Arius</div>
                     
-                    <div class="item-row">
+                    <div class="item-row" data-category="Arius" data-scope="Scope Legado">
                         <div class="item-name">Scope Legado</div>
                         <div class="col-center">
                             <label class="checkbox-container">
@@ -732,7 +732,7 @@
                         </div>
                     </div>
 
-                    <div class="item-row">
+                    <div class="item-row" data-category="Arius" data-scope="Scope NA">
                         <div class="item-name">Scope NA</div>
                         <div class="col-center">
                             <label class="checkbox-container">
@@ -753,7 +753,7 @@
                 <div class="category-group">
                     <div class="category-title">Multiplus Card</div>
                     
-                    <div class="item-row">
+                    <div class="item-row" data-category="Multiplus Card" data-scope="Scope Legado">
                         <div class="item-name">Scope Legado</div>
                         <div class="col-center">
                             <label class="checkbox-container">
@@ -769,7 +769,7 @@
                         </div>
                     </div>
 
-                    <div class="item-row">
+                    <div class="item-row" data-category="Multiplus Card" data-scope="Scope NA">
                         <div class="item-name">Scope NA</div>
                         <div class="col-center">
                             <label class="checkbox-container">
@@ -791,7 +791,7 @@
                 <div class="footer-actions">
                     <button type="button" class="btn btn-reset" onclick="loadGitHubHistory()">Atualizar / Carregar Histórico</button>
                     <div class="btn-group">
-                        <button type="reset" class="btn btn-reset">Limpar</button>
+                        <button type="reset" class="btn btn-reset" onclick="resetFormState()">Limpar</button>
                         <button type="submit" class="btn btn-primary">Salvar no GitHub (JSON)</button>
                     </div>
                 </div>
@@ -837,6 +837,15 @@
             setTimeout(() => { msg.style.display = 'none'; }, 5000);
         }
 
+        function resetFormState() {
+            document.querySelectorAll('.item-row').forEach(row => {
+                const chkBlack = row.querySelector('.chk-black');
+                const chkGreen = row.querySelector('.chk-green');
+                if (!chkBlack.disabled) chkBlack.checked = false;
+                if (!chkGreen.disabled) chkGreen.checked = false;
+            });
+        }
+
         async function saveToGitHub() {
             const name = document.getElementById('execName').value.trim();
             const date = document.getElementById('execDate').value;
@@ -857,7 +866,7 @@
             const items = [];
             document.querySelectorAll('.item-row').forEach(row => {
                 const envName = row.querySelector('.item-name').textContent;
-                const category = row.closest('.category-group').querySelector('.category-title').textContent.trim();
+                const category = row.dataset.category;
                 const chkBlack = row.querySelector('.chk-black').checked;
                 const chkGreen = row.querySelector('.chk-green').checked;
                 items.push({
@@ -881,7 +890,6 @@
             try {
                 showMessage('Salvando no GitHub...', 'success');
 
-                // 1. Get current file (if exists) to get sha
                 let sha = null;
                 let existingData = [];
 
@@ -897,13 +905,12 @@
                     if (!Array.isArray(existingData)) existingData = [existingData];
                 }
 
-                // Add new entry to the beginning of history
+                // Remove existing entry for the same date if it exists to avoid duplicates per day, or prepend new
+                existingData = existingData.filter(entry => entry.data !== date);
                 existingData.unshift(currentEntry);
 
-                // Encode content to Base64
                 const updatedContent = btoa(unescape(encodeURIComponent(JSON.stringify(existingData, null, 2))));
 
-                // 2. Commit file update to GitHub API
                 const putRes = await fetch(apiUrl, {
                     method: 'PUT',
                     headers: {
@@ -933,6 +940,7 @@
         async function loadGitHubHistory() {
             const repo = document.getElementById('ghRepo').value.trim();
             const token = document.getElementById('ghToken').value.trim();
+            const selectedDate = document.getElementById('execDate').value;
 
             if (!repo) return;
 
@@ -954,11 +962,17 @@
 
                     document.getElementById('historyCount').textContent = `${history.length} registro(s)`;
 
+                    // Find if there is an entry matching the selected date
+                    let matchedEntry = null;
+
                     history.forEach(entry => {
+                        if (entry.data === selectedDate && !matchedEntry) {
+                            matchedEntry = entry;
+                        }
+
                         const card = document.createElement('div');
                         card.className = 'history-card';
                         
-                        // Build checked items list
                         let itemsHtml = '';
                         if (entry.itens && Array.isArray(entry.itens)) {
                             const checkedItems = entry.itens.filter(i => i.bolinhaPreta || i.bolinhaVerde);
@@ -986,11 +1000,34 @@
                         `;
                         historyList.appendChild(card);
                     });
+
+                    // Update checkboxes based on matched date entry
+                    resetFormState();
+                    if (matchedEntry && matchedEntry.itens) {
+                        if (matchedEntry.executor) {
+                            document.getElementById('execName').value = matchedEntry.executor;
+                        }
+                        matchedEntry.itens.forEach(i => {
+                            const rows = document.querySelectorAll('.item-row');
+                            rows.forEach(row => {
+                                const cat = row.dataset.category;
+                                const scp = row.dataset.scope;
+                                if (cat === i.ambiente && scp === i.escopo) {
+                                    const chkBlack = row.querySelector('.chk-black');
+                                    const chkGreen = row.querySelector('.chk-green');
+                                    if (!chkBlack.disabled) chkBlack.checked = i.bolinhaPreta;
+                                    chkGreen.checked = i.bolinhaVerde;
+                                }
+                            });
+                        });
+                    }
+
                 } else if (res.status === 404) {
-                    document.getElementById('historyList').innerHTML = '<div style="padding: 15px; text-align: center; color: var(--text-muted);">Nenhum histórico encontrado ainda no repositório (o arquivo JSON será criado ao salvar a primeira execução).</div>';
+                    document.getElementById('historyList').innerHTML = '<div style="padding: 15px; text-align: center; color: var(--text-muted);">Nenhum histórico encontrado ainda no repositório.</div>';
                     document.getElementById('historyCount').textContent = '0 registros';
+                    resetFormState();
                 } else {
-                    document.getElementById('historyList').innerHTML = `<div style="padding: 15px; text-align: center; color: #9B1C1C;">Erro ao carregar histórico (Status ${res.status}). Verifique o token e o repositório.</div>`;
+                    document.getElementById('historyList').innerHTML = `<div style="padding: 15px; text-align: center; color: #9B1C1C;">Erro ao carregar histórico (Status ${res.status}).</div>`;
                     document.getElementById('historyCount').textContent = '0 registros';
                 }
             } catch (e) {
