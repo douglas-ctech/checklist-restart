@@ -981,9 +981,12 @@
                                 itemsHtml = '<ul class="history-items-list">';
                                 checkedItems.forEach(i => {
                                     let statusText = [];
-                                    if (i.bolinhaPreta) statusText.push('Status 1');
                                     if (i.bolinhaVerde) statusText.push('Status 2');
-                                    let text = `${i.ambiente} - ${i.escopo} (${statusText.join(' e ')})`;
+                                    
+                                    let text = `${i.ambiente} - ${i.escopo}`;
+                                    if (statusText.length > 0) {
+                                        text += ` (${statusText.join(' e ')})`;
+                                    }
                                     itemsHtml += `<li><b>${text}</b></li>`;
                                 });
                                 itemsHtml += '</ul>';
