@@ -965,10 +965,8 @@
                             if (checkedItems.length > 0) {
                                 itemsHtml = '<ul class="history-items-list">';
                                 checkedItems.forEach(i => {
-                                    let dots = [];
-                                    if (i.bolinhaPreta) dots.push('Bolinha Preta');
-                                    if (i.bolinhaVerde) dots.push('Bolinha Verde');
-                                    itemsHtml += `<li><b>${i.ambiente} - ${i.escopo}</b>: ${dots.join(' e ')}</li>`;
+                                    let text = `${i.ambiente} - ${i.escopo}`;
+                                    itemsHtml += `<li><b>${text}</b></li>`;
                                 });
                                 itemsHtml += '</ul>';
                             } else {
@@ -988,8 +986,12 @@
                         `;
                         historyList.appendChild(card);
                     });
+                } else if (res.status === 404) {
+                    document.getElementById('historyList').innerHTML = '<div style="padding: 15px; text-align: center; color: var(--text-muted);">Nenhum histórico encontrado ainda no repositório (o arquivo JSON será criado ao salvar a primeira execução).</div>';
+                    document.getElementById('historyCount').textContent = '0 registros';
                 } else {
-                    document.getElementById('historyList').innerHTML = '<div style="padding: 15px; text-align: center; color: var(--text-muted);">Nenhum histórico encontrado ainda no repositório.</div>';
+                    document.getElementById('historyList').innerHTML = `<div style="padding: 15px; text-align: center; color: #9B1C1C;">Erro ao carregar histórico (Status ${res.status}). Verifique o token e o repositório.</div>`;
+                    document.getElementById('historyCount').textContent = '0 registros';
                 }
             } catch (e) {
                 console.log('Não foi possível carregar o histórico automaticamente.', e);
