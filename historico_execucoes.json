@@ -1,6 +1,127 @@
 [
   {
     "executor": "Douglas Lima",
+    "data": "2026-07-28",
+    "timestamp": "2026-07-24T20:45:41.642Z",
+    "itens": [
+      {
+        "ambiente": "Azure",
+        "escopo": "Scope Legado",
+        "bolinhaPreta": true,
+        "bolinhaVerde": false
+      },
+      {
+        "ambiente": "Azure",
+        "escopo": "Scope NA",
+        "bolinhaPreta": false,
+        "bolinhaVerde": false
+      },
+      {
+        "ambiente": "AWS",
+        "escopo": "Softcom",
+        "bolinhaPreta": false,
+        "bolinhaVerde": false
+      },
+      {
+        "ambiente": "AWS",
+        "escopo": "Scope Legado",
+        "bolinhaPreta": false,
+        "bolinhaVerde": false
+      },
+      {
+        "ambiente": "AWS",
+        "escopo": "Scope NA",
+        "bolinhaPreta": false,
+        "bolinhaVerde": false
+      },
+      {
+        "ambiente": "Elgin",
+        "escopo": "Scope Legado",
+        "bolinhaPreta": false,
+        "bolinhaVerde": false
+      },
+      {
+        "ambiente": "Elgin",
+        "escopo": "Scope NA",
+        "bolinhaPreta": false,
+        "bolinhaVerde": false
+      },
+      {
+        "ambiente": "Softom",
+        "escopo": "Scope Legado",
+        "bolinhaPreta": false,
+        "bolinhaVerde": false
+      },
+      {
+        "ambiente": "Softom",
+        "escopo": "Scope NA",
+        "bolinhaPreta": false,
+        "bolinhaVerde": false
+      },
+      {
+        "ambiente": "Compartilhado",
+        "escopo": "Scope Legado",
+        "bolinhaPreta": false,
+        "bolinhaVerde": false
+      },
+      {
+        "ambiente": "Compartilhado",
+        "escopo": "Scope NA",
+        "bolinhaPreta": false,
+        "bolinhaVerde": false
+      },
+      {
+        "ambiente": "Linear Sistemas",
+        "escopo": "Scope Legado",
+        "bolinhaPreta": false,
+        "bolinhaVerde": false
+      },
+      {
+        "ambiente": "Linear Sistemas",
+        "escopo": "Scope NA",
+        "bolinhaPreta": false,
+        "bolinhaVerde": false
+      },
+      {
+        "ambiente": "Procfit",
+        "escopo": "Scope Legado",
+        "bolinhaPreta": false,
+        "bolinhaVerde": false
+      },
+      {
+        "ambiente": "Procfit",
+        "escopo": "Scope NA",
+        "bolinhaPreta": false,
+        "bolinhaVerde": false
+      },
+      {
+        "ambiente": "Arius",
+        "escopo": "Scope Legado",
+        "bolinhaPreta": true,
+        "bolinhaVerde": false
+      },
+      {
+        "ambiente": "Arius",
+        "escopo": "Scope NA",
+        "bolinhaPreta": true,
+        "bolinhaVerde": false
+      },
+      {
+        "ambiente": "Multiplus Card",
+        "escopo": "Scope Legado",
+        "bolinhaPreta": true,
+        "bolinhaVerde": false
+      },
+      {
+        "ambiente": "Multiplus Card",
+        "escopo": "Scope NA",
+        "bolinhaPreta": false,
+        "bolinhaVerde": false
+      }
+    ]
+  },
+  {
+    "executor": "Douglas Lima",
     "data": "2026-07-27",
     "timestamp": "2026-07-24T20:44:30.500Z",
     "itens": [
