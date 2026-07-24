@@ -61,11 +61,9 @@
                     <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
                         <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> Servidores Azure
                     </h2>
-                    <span class="text-xs font-semibold bg-blue-50 text-blue-700 px-3 py-1 rounded-full border border-blue-200">3 HTTPS • 2 TCP</span>
+                    <span class="text-xs font-semibold bg-blue-50 text-blue-700 px-3 py-1 rounded-full border border-blue-200">3 TCP • 2 HTTPS</span>
                 </div>
-                <div id="azureContainer" class="space-y-4">
-                    <!-- Dynamic Azure Cards -->
-                </div>
+                <div id="azureContainer" class="space-y-4"></div>
             </section>
 
             <!-- AWS Section -->
@@ -76,9 +74,7 @@
                     </h2>
                     <span class="text-xs font-semibold bg-amber-50 text-amber-700 px-3 py-1 rounded-full border border-amber-200">7 Ambientes</span>
                 </div>
-                <div id="awsContainer" class="space-y-4">
-                    <!-- Dynamic AWS Cards -->
-                </div>
+                <div id="awsContainer" class="space-y-4"></div>
             </section>
 
             <!-- Observations -->
@@ -92,20 +88,51 @@
                 <button onclick="resetChecklist()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl border border-red-200 text-red-600 hover:bg-red-50 text-sm font-semibold transition">
                     Limpar Checklist
                 </button>
-                <button onclick="exportToExcel()" class="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-sm shadow-sm transition">
-                    <span>📊</span> Gerar e Baixar Relatório Excel
-                </button>
+                <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+                    <button onclick="saveToHistory()" class="w-full sm:w-auto px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-900 text-white font-bold text-sm shadow-sm transition">
+                        💾 Salvar no Histórico
+                    </button>
+                    <button onclick="exportToExcel()" class="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-sm shadow-sm transition">
+                        <span>📊</span> Baixar Excel
+                    </button>
+                </div>
             </div>
+
+            <!-- History Section (Agenda) -->
+            <section class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm mt-10">
+                <div class="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
+                    <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                        <span>📅</span> Histórico / Agenda de Execuções Salvas
+                    </h2>
+                    <button onclick="clearHistory()" class="text-xs text-red-500 hover:text-red-700 font-medium">Limpar Histórico</button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-50 text-slate-600 border-b border-slate-200">
+                            <tr>
+                                <th class="p-3">Data</th>
+                                <th class="p-3">Responsável</th>
+                                <th class="p-3">Progresso</th>
+                                <th class="p-3">Observações</th>
+                                <th class="p-3 text-right">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody" class="divide-y divide-slate-100 text-slate-700">
+                            <!-- Preenchido via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
         </main>
     </div>
 
     <script>
         const azureServers = [
-            { name: "Servidor Azure HTTPS 1", type: "HTTPS" },
-            { name: "Servidor Azure HTTPS 2", type: "HTTPS" },
-            { name: "Servidor Azure HTTPS 3", type: "HTTPS" },
-            { name: "Servidor Azure TCP 1", type: "TCP" },
-            { name: "Servidor Azure TCP 2", type: "TCP" }
+            { name: "Servidor TCP 1", ip: "172.18.0.81", type: "TCP" },
+            { name: "Servidor TCP 2", ip: "172.18.0.82", type: "TCP" },
+            { name: "Servidor TCP 3", ip: "172.18.0.83", type: "TCP" },
+            { name: "Servidor HTTPS 1", ip: "172.27.233.70", type: "HTTPS" },
+            { name: "Servidor HTTPS 2", ip: "172.27.233.71", type: "HTTPS" }
         ];
 
         const awsEnvironments = [
@@ -113,20 +140,18 @@
         ];
 
         const azureSteps = [
-            "Sincronizar offline no PSW",
-            "Bloquear os PDVs",
-            "Aguardar 30s",
+            "Sincronismo offline no PSW",
+            "Bloquear PDVs",
             "Encerrar aplicação",
-            "Executar como Admin",
-            "Aguardar carregar contrato"
+            "Executar aplicação como admin",
+            "Contratos carregados"
         ];
 
         const awsSteps = [
-            "Sincronizar offline no PSW",
-            "Silenciar PDVs",
-            "Abrir services.msc",
-            "Parar/Subir Serviços",
-            "Aguardar PDVs voltarem"
+            "Sincronismo offline no PSW",
+            "Silenciar PDVs na console",
+            "Parar/subir serviços do SCOPE no services.msc",
+            "Aguardar PDVs voltarem na console"
         ];
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -134,6 +159,7 @@
             renderAzure();
             renderAWS();
             updateProgress();
+            loadHistory();
         });
 
         function renderAzure() {
@@ -154,9 +180,9 @@
                     <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
                         <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
                             <span class="font-bold text-slate-800 text-sm flex items-center gap-2">
-                                <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> ${srv.name}
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> ${srv.name} <span class="text-xs text-slate-400 font-mono font-normal">(${srv.ip})</span>
                             </span>
-                            <span class="text-xs text-slate-400 font-mono">AWS / Azure</span>
+                            <span class="text-xs text-slate-400 font-mono">Azure</span>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
                             ${stepsHtml}
@@ -188,7 +214,7 @@
                             </span>
                             <span class="text-xs text-slate-400 font-mono">AWS</span>
                         </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-2.5">
                             ${stepsHtml}
                         </div>
                     </div>
@@ -205,6 +231,7 @@
             
             document.getElementById("progressText").innerText = percent + "%";
             document.getElementById("progressBar").style.width = percent + "%";
+            return percent;
         }
 
         function resetChecklist() {
@@ -212,6 +239,125 @@
                 document.querySelectorAll("input[type='checkbox']").forEach(cb => cb.checked = false);
                 document.getElementById("observations").value = "";
                 updateProgress();
+            }
+        }
+
+        function getChecklistState() {
+            let state = { azure: {}, aws: {} };
+            azureServers.forEach((srv, srvIdx) => {
+                state.azure[srvIdx] = {};
+                azureSteps.forEach((step, stepIdx) => {
+                    const cb = document.querySelector(`input[data-group="azure"][data-server="${srvIdx}"][data-step="${stepIdx}"]`);
+                    state.azure[srvIdx][stepIdx] = cb ? cb.checked : false;
+                });
+            });
+            awsEnvironments.forEach((env, envIdx) => {
+                state.aws[envIdx] = {};
+                awsSteps.forEach((step, stepIdx) => {
+                    const cb = document.querySelector(`input[data-group="aws"][data-env="${envIdx}"][data-step="${stepIdx}"]`);
+                    state.aws[envIdx][stepIdx] = cb ? cb.checked : false;
+                });
+            });
+            return state;
+        }
+
+        function saveToHistory() {
+            const date = document.getElementById("checkDate").value;
+            const resp = document.getElementById("respName").value || "Não informado";
+            const obs = document.getElementById("observations").value || "";
+            const percent = updateProgress();
+
+            if (!date) {
+                alert("Por favor, informe a data.");
+                return;
+            }
+
+            const record = {
+                id: Date.now(),
+                date,
+                resp,
+                percent,
+                obs,
+                state: getChecklistState()
+            };
+
+            let history = JSON.parse(localStorage.getItem("checklist_history") || "[]");
+            history = history.filter(item => item.date !== date);
+            history.unshift(record);
+
+            localStorage.setItem("checklist_history", JSON.stringify(history));
+            loadHistory();
+            alert("Checklist salvo no histórico com sucesso!");
+        }
+
+        function loadHistory() {
+            const tbody = document.getElementById("historyTableBody");
+            let history = JSON.parse(localStorage.getItem("checklist_history") || "[]");
+            
+            if (history.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-400">Nenhum registro salvo no histórico ainda.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = "";
+            history.forEach(item => {
+                tbody.innerHTML += `
+                    <tr class="hover:bg-slate-50 transition">
+                        <td class="p-3 font-medium">${item.date}</td>
+                        <td class="p-3">${item.resp}</td>
+                        <td class="p-3">
+                            <span class="px-2 py-0.5 rounded text-xs font-semibold ${item.percent === 100 ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-amber-50 text-amber-700 border border-amber-200'}">
+                                ${item.percent}%
+                            </span>
+                        </td>
+                        <td class="p-3 text-slate-500 truncate max-w-xs">${item.obs || '-'}</td>
+                        <td class="p-3 text-right space-x-2">
+                            <button onclick="loadRecord(${item.id})" class="text-blue-600 hover:text-blue-800 text-xs font-semibold">Carregar</button>
+                            <button onclick="deleteRecord(${item.id})" class="text-red-500 hover:text-red-700 text-xs">Excluir</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function loadRecord(id) {
+            let history = JSON.parse(localStorage.getItem("checklist_history") || "[]");
+            let record = history.find(item => item.id === id);
+            if (!record) return;
+
+            document.getElementById("checkDate").value = record.date;
+            document.getElementById("respName").value = record.resp;
+            document.getElementById("observations").value = record.obs;
+
+            for (let srvIdx in record.state.azure) {
+                for (let stepIdx in record.state.azure[srvIdx]) {
+                    let cb = document.querySelector(`input[data-group="azure"][data-server="${srvIdx}"][data-step="${stepIdx}"]`);
+                    if (cb) cb.checked = record.state.azure[srvIdx][stepIdx];
+                }
+            }
+            for (let envIdx in record.state.aws) {
+                for (let stepIdx in record.state.aws[envIdx]) {
+                    let cb = document.querySelector(`input[data-group="aws"][data-env="${envIdx}"][data-step="${stepIdx}"]`);
+                    if (cb) cb.checked = record.state.aws[envIdx][stepIdx];
+                }
+            }
+            updateProgress();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function deleteRecord(id) {
+            if (confirm("Deseja remover este registro do histórico?")) {
+                let history = JSON.parse(localStorage.getItem("checklist_history") || "[]");
+                history = history.filter(item => item.id !== id);
+                localStorage.setItem("checklist_history", JSON.stringify(history));
+                loadHistory();
+            }
+        }
+
+        function clearHistory() {
+            if (confirm("Deseja apagar todo o histórico de execuções?")) {
+                localStorage.removeItem("checklist_history");
+                loadHistory();
             }
         }
 
@@ -225,13 +371,13 @@
                 ["Data:", date, "Responsável:", resp],
                 [],
                 ["--- SERVIDORES AZURE ---"],
-                ["Servidor", "Tipo", "Passo da Rotina", "Status"]
+                ["Servidor", "IP", "Tipo", "Passo da Rotina", "Status"]
             ];
 
             azureServers.forEach((srv, srvIdx) => {
                 azureSteps.forEach((step, stepIdx) => {
                     const cb = document.querySelector(`input[data-group="azure"][data-server="${srvIdx}"][data-step="${stepIdx}"]`);
-                    excelData.push([srv.name, srv.type, step, cb && cb.checked ? "CONCLUÍDO" : "PENDENTE"]);
+                    excelData.push([srv.name, srv.ip, srv.type, step, cb && cb.checked ? "CONCLUÍDO" : "PENDENTE"]);
                 });
             });
 
