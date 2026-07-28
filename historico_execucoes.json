@@ -1,8 +1,8 @@
 [
   {
     "executor": "Douglas Lima",
-    "data": "2026-07-27",
-    "timestamp": "2026-07-24T21:02:41.939Z",
+    "data": "2026-07-28",
+    "timestamp": "2026-07-28T13:10:08.314Z",
     "itens": [
       {
         "ambiente": "Azure",
@@ -122,8 +122,8 @@
   },
   {
     "executor": "Douglas Lima",
-    "data": "2026-07-28",
-    "timestamp": "2026-07-24T20:59:17.358Z",
+    "data": "2026-07-27",
+    "timestamp": "2026-07-24T21:02:41.939Z",
     "itens": [
       {
         "ambiente": "Azure",
@@ -206,25 +206,25 @@
       {
         "ambiente": "Procfit",
         "escopo": "Scope Legado",
-        "bolinhaPreta": true,
+        "bolinhaPreta": false,
         "bolinhaVerde": false
       },
       {
         "ambiente": "Procfit",
         "escopo": "Scope NA",
-        "bolinhaPreta": true,
+        "bolinhaPreta": false,
         "bolinhaVerde": false
       },
       {
         "ambiente": "Arius",
         "escopo": "Scope Legado",
-        "bolinhaPreta": true,
+        "bolinhaPreta": false,
         "bolinhaVerde": false
       },
       {
         "ambiente": "Arius",
         "escopo": "Scope NA",
-        "bolinhaPreta": true,
+        "bolinhaPreta": false,
         "bolinhaVerde": false
       },
       {
